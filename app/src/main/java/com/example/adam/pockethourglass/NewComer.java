@@ -17,52 +17,27 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class newComer extends ActionBarActivity {
+public class NewComer extends ActionBarActivity {
 
     Calendar Date;
-    int year, month, month1, day;
+    int year, month, day;
     String numberOfDays, totalMoney, endDateString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_comer);
-        final EditText editTotalMoney = (EditText) findViewById(R.id.editText1);
-        final TextView EndDate = (TextView) findViewById(R.id.numberOfDaysView);
-        final Button im2 = (Button) findViewById(R.id.toDateButton);
-        final Button Save = (Button) findViewById(R.id.button1);
+        final EditText editTextTotalMoney = (EditText) findViewById(R.id.editTotalMoney);
+        final TextView numberOfDaysView = (TextView) findViewById(R.id.numberOfDaysView);
+        final Button toDateButton = (Button) findViewById(R.id.toDateButton);
+        final Button Save = (Button) findViewById(R.id.save);
 
-        totalMoney = editTotalMoney.getText().toString();
+        totalMoney = editTextTotalMoney.getText().toString();
 
-        im2.setOnClickListener(new View.OnClickListener() {
+        toDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-
-                Date = Calendar.getInstance();
-                day = Date.get(Calendar.DAY_OF_MONTH);
-                year = Date.get(Calendar.YEAR);
-                month = Date.get(Calendar.MONTH);
-
-                //TODO: disable selection of days before today.
-                DatePickerDialog datepicker = new DatePickerDialog(newComer.this, new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                          int dayOfMonth) {
-                        endDateString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                        numberOfDays = numberOfDays(endDateString);
-                        if (Integer.parseInt(numberOfDays) == 1)
-                            EndDate.setText("يوم واحد");
-                        else if (Integer.parseInt(numberOfDays) == 2)
-                            EndDate.setText("يومين");
-                        else if (Integer.parseInt(numberOfDays) >= 3 && Integer.parseInt(numberOfDays) <= 10)
-                            EndDate.setText(numberOfDays + " أيام");
-                        else if (Integer.parseInt(numberOfDays) >= 10)
-                            EndDate.setText(numberOfDays + " يوم");
-                    }
-                }, year, month, day);
-                datepicker.show();
+                pickDate(numberOfDaysView);
             }
         });
 
@@ -82,6 +57,33 @@ public class newComer extends ActionBarActivity {
 
             }
         });
+    }
+
+    private void pickDate(final TextView numberOfDaysView) {
+        Date = Calendar.getInstance();
+        day = Date.get(Calendar.DAY_OF_MONTH);
+        year = Date.get(Calendar.YEAR);
+        month = Date.get(Calendar.MONTH);
+
+        //TODO: disable selection of days before today.
+        DatePickerDialog datepicker = new DatePickerDialog(NewComer.this, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                endDateString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                numberOfDays = numberOfDays(endDateString);
+                if (Integer.parseInt(numberOfDays) == 1)
+                    numberOfDaysView.setText("يوم واحد");
+                else if (Integer.parseInt(numberOfDays) == 2)
+                    numberOfDaysView.setText("يومين");
+                else if (Integer.parseInt(numberOfDays) >= 3 && Integer.parseInt(numberOfDays) <= 10)
+                    numberOfDaysView.setText(numberOfDays + " أيام");
+                else if (Integer.parseInt(numberOfDays) >= 10)
+                    numberOfDaysView.setText(numberOfDays + " يوم");
+            }
+        }, year, month, day);
+        datepicker.show();
     }
 
     private String numberOfDays(String endDateString) {

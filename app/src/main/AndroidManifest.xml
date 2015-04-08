@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".newComer"
+            android:name=".NewComer"
             android:label="@string/title_activity_new_comer"></activity>
     </application>
 

@@ -6,27 +6,27 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.adam.pockethourglass.newComer">
+    tools:context="com.example.adam.pockethourglass.NewComer">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/howMuch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="معاك كام؟"
         android:textSize="45dp"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3" />
+        android:layout_alignBottom="@+id/editTotalMoney"
+        android:layout_alignRight="@+id/untilWhen"
+        android:layout_alignEnd="@+id/untilWhen" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editTotalMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginBottom="68dp"
         android:inputType="numberDecimal"
-        android:layout_above="@+id/textView3"
-        android:layout_toLeftOf="@+id/textView3"
+        android:layout_above="@+id/untilWhen"
+        android:layout_toLeftOf="@+id/untilWhen"
         android:layout_alignLeft="@+id/toDateButton"
         android:layout_alignStart="@+id/toDateButton">
 
@@ -34,7 +34,7 @@
     </EditText>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/untilWhen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="لغاية امتي؟"
@@ -44,7 +44,7 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
@@ -60,7 +60,7 @@
         android:layout_marginBottom="133dp"
         android:layout_marginLeft="39dp"
         android:layout_marginStart="39dp"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/save"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -72,10 +72,10 @@
         android:textSize="45dp"
         android:layout_marginTop="36dp"
         android:textAlignment="center"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/untilWhen"
         android:layout_alignLeft="@+id/toDateButton"
         android:layout_alignStart="@+id/toDateButton"
-        android:layout_alignRight="@+id/button1"
-        android:layout_alignEnd="@+id/button1"></TextView>
+        android:layout_alignRight="@+id/save"
+        android:layout_alignEnd="@+id/save"></TextView>
 
 </RelativeLayout>
