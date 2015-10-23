@@ -86,6 +86,7 @@ public class NewComer extends ActionBarActivity {
         datepicker.show();
     }
     // conda was here
+    // menna was here
     private String numberOfDays(String endDateString) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String currentDateandTime = sdf.format(new Date());
