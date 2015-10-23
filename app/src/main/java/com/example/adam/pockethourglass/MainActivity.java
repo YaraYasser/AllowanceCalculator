@@ -32,8 +32,8 @@ public class MainActivity extends ActionBarActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_newMoney:
-                Intent _intent = new Intent(MainActivity.this, NewComer.class);
-                startActivity(_intent);
+                Intent _intent = new Intent(MainActivity.this, NewComer.class); // navigates to the new page
+                startActivity(_intent); // starts the new comer page
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
