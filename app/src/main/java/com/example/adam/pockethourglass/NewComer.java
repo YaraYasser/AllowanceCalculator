@@ -2,6 +2,7 @@ package com.example.adam.pockethourglass;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -32,7 +34,7 @@ public class NewComer extends ActionBarActivity {
         final Button toDateButton = (Button) findViewById(R.id.toDateButton);// button of the calender
         final Button Save = (Button) findViewById(R.id.save);
 
-        totalMoney = editTextTotalMoney.getText().toString(); //edit the text view ele fel main ele by3rd el total money
+         //edit the text view ele fel main ele by3rd el total money
 
         toDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +50,10 @@ public class NewComer extends ActionBarActivity {
                 //code database here
 
                 //Toast.makeText(getApplicationContext(), NumberOfDays +"", Toast.LENGTH_SHORT).show();
-
+                totalMoney = editTextTotalMoney.getText().toString();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("TotalMoney", totalMoney);
-                intent.putExtra("N", numberOfDays).toString();
+                intent.putExtra("N", numberOfDays);
                 //intent.putExtra("NumberOfDays", value)
                 startActivity(intent);
 
@@ -67,24 +69,25 @@ public class NewComer extends ActionBarActivity {
 
 
         //TODO: disable selection of days before today.
-        DatePickerDialog datepicker = new DatePickerDialog(NewComer.this, new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datepicker = new DatePickerDialog(NewComer.this, new DatePickerDialog.OnDateSetListener() {
 
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                endDateString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
-                numberOfDays = numberOfDays(endDateString); // text view ele bttl3 b3d ma a5tar el calender 3shan a confirm
-                if (Integer.parseInt(numberOfDays) == 1)
-                    numberOfDaysView.setText("يوم واحد");
-                else if (Integer.parseInt(numberOfDays) == 2)
-                    numberOfDaysView.setText("يومين");
-                else if (Integer.parseInt(numberOfDays) >= 3 && Integer.parseInt(numberOfDays) <= 10)
-                    numberOfDaysView.setText(numberOfDays + " أيام");
-                else if (Integer.parseInt(numberOfDays) >= 10)
-                    numberOfDaysView.setText(numberOfDays + " يوم");
-            }
-        }, year, month, day);
-        datepicker.show();
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    endDateString = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+                    numberOfDays = numberOfDays(endDateString); // text view ele bttl3 b3d ma a5tar el calender 3shan a confirm
+                    if (Integer.parseInt(numberOfDays) == 1)
+                        numberOfDaysView.setText("يوم واحد");
+                    else if (Integer.parseInt(numberOfDays) == 2)
+                        numberOfDaysView.setText("يومين");
+                    else if (Integer.parseInt(numberOfDays) >= 3 && Integer.parseInt(numberOfDays) <= 10)
+                        numberOfDaysView.setText(numberOfDays + " أيام");
+                    else if (Integer.parseInt(numberOfDays) >= 10)
+                        numberOfDaysView.setText(numberOfDays + " يوم");
+                }
+            }, year, month, day);
+            datepicker.show();
+
     }
     // conda was here
     // menna was here
