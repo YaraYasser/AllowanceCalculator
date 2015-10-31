@@ -1,10 +1,12 @@
 package com.example.adam.pockethourglass;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,6 +58,7 @@ public class NewComer extends ActionBarActivity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("TotalMoney", totalMoney);
                 intent.putExtra("N", numberOfDays);
+                writeToFile(totalMoney,numberOfDays);
                 //intent.putExtra("NumberOfDays", value)
                 startActivity(intent);
 
@@ -123,4 +128,22 @@ public class NewComer extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    private void writeToFile(String money, String day) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("config.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(money);
+            outputStreamWriter.write("@");
+            outputStreamWriter.write(day);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+
+        }
+    }
+
+
+
 }
