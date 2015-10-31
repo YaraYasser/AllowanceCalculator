@@ -19,6 +19,7 @@ int money=0;
     int d=0;
     EditText add;
     TextView Todaymoney;
+    EditText del;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,12 +28,13 @@ int money=0;
         TextView Totalmoney=(TextView) findViewById(R.id.totalMoney);
         TextView Days=(TextView) findViewById(R.id.textView);
         add=(EditText) findViewById(R.id.added);
+        del=(EditText) findViewById(R.id.deleted);
         Intent i=getIntent();
         String S= i.getStringExtra("TotalMoney");
         if(i.hasExtra("TotalMoney")) {
             money= Integer.parseInt(S);
 
-            Totalmoney.setText(S + " جنيه");
+            Totalmoney.setText(S + "جنيه");
 
         }
         else {
@@ -52,7 +54,7 @@ int money=0;
                 Days.setText(d + " يوم");
             if(i.hasExtra("TotalMoney")) {
                 int TM = money / d;
-                Todaymoney.setText(TM + " جنيه");
+                Todaymoney.setText(TM + "جنيه");
             }
 
         }
@@ -87,13 +89,20 @@ int money=0;
            int m = Integer.parseInt(add.getText().toString());
 
             String s=Todaymoney.getText().toString();
-            s=s.replace(" جنيه","");
-
-            Todaymoney.setText(m);
+            s=s.replace("جنيه","");
+            int n=Integer.parseInt(s);
+            Todaymoney.setText(String.valueOf(n+m));
        }
 
     }
     public void by3yt (View v){
         Toast.makeText(this,"يعوض عليك ربنا",Toast.LENGTH_SHORT).show();
+        if (! del.getText().toString().isEmpty()){
+            int m=Integer.parseInt(del.getText().toString());
+            String s= Todaymoney.getText().toString();
+            s=s.replace("جنيه","");
+            int n=Integer.parseInt(s);
+            Todaymoney.setText(String.valueOf(n-m));
+        }
     }
 }
