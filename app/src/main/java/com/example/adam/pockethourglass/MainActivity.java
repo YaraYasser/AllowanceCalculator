@@ -21,7 +21,7 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends ActionBarActivity {
 //Mohamed habib was here
-int money=0;
+    int m=0;
     int d=0;
     EditText add;
     TextView Todaymoney;
@@ -30,26 +30,21 @@ int money=0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       Todaymoney=(TextView) findViewById(R.id.todayMoney);
+        Todaymoney=(TextView) findViewById(R.id.todayMoney);
         TextView Totalmoney=(TextView) findViewById(R.id.totalMoney);
         TextView Days=(TextView) findViewById(R.id.textView);
         add=(EditText) findViewById(R.id.added);
         del=(EditText) findViewById(R.id.deleted);
-        Intent i=getIntent();
-        String S= i.getStringExtra("TotalMoney");
-        if(i.hasExtra("TotalMoney")) {
-            money= Integer.parseInt(S);
-
-            Totalmoney.setText(S + "جنيه");
-
+        Totalmoney.setText("مفيش");
+        Todaymoney.setText("مفيش");
+        String str=readFromFile();
+        String [] sarr=str.split("@");
+        if(sarr[0]!= ""){
+            Totalmoney.setText(sarr[0]+"جنيه");
+            m=Integer.parseInt(sarr[0]);
         }
-        else {
-
-            Totalmoney.setText("لسه");
-        }
-        S =i.getStringExtra("N");
-        if(i.hasExtra("N")) {
-             d = Integer.parseInt(S);
+        if(sarr[1]!=""){
+            d=Integer.parseInt(sarr[1]);
             if (d == 1)
                 Days.setText("يوم واحد");
             else if (d == 2)
@@ -58,16 +53,42 @@ int money=0;
                 Days.setText(d + " أيام");
             else if (d >= 10)
                 Days.setText(d + " يوم");
-            if(i.hasExtra("TotalMoney")) {
-                int TM = money / d;
-                Todaymoney.setText(TM + "جنيه");
-            }
-
         }
-        else
-            Days.setText("لسه");
+        if(!str.isEmpty()){
+            Todaymoney.setText(String.valueOf(m/d)+"جنيه");
+        }
     }
+    /*Intent i=getIntent();
+    String S= i.getStringExtra("TotalMoney");
+    if(i.hasExtra("TotalMoney")) {
+        money= Integer.parseInt(S);
 
+        Totalmoney.setText(S + "جنيه");
+
+    }
+    else {
+
+        Totalmoney.setText("لسه");
+    }
+    S =i.getStringExtra("N");
+    if(i.hasExtra("N")) {
+        d = Integer.parseInt(S);
+        if (d == 1)
+            Days.setText("يوم واحد");
+        else if (d == 2)
+            Days.setText("يومين");
+        else if (d >= 3 && d <= 10)
+            Days.setText(d + " أيام");
+        else if (d >= 10)
+            Days.setText(d + " يوم");
+        if(i.hasExtra("TotalMoney")) {
+            int TM = money / d;
+            Todaymoney.setText(TM + "جنيه");
+        }
+
+    }
+    else
+            Days.setText("لسه");*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
