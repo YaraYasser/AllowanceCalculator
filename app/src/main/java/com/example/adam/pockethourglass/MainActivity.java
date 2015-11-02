@@ -35,27 +35,33 @@ public class MainActivity extends ActionBarActivity {
         TextView Days=(TextView) findViewById(R.id.textView);
         add=(EditText) findViewById(R.id.added);
         del=(EditText) findViewById(R.id.deleted);
-        Totalmoney.setText("مفيش");
-        Todaymoney.setText("مفيش");
+
         String str=readFromFile();
-        String [] sarr=str.split("@");
-        if(sarr[0]!= ""){
-            Totalmoney.setText(sarr[0]+"جنيه");
-            m=Integer.parseInt(sarr[0]);
+        if(!str.isEmpty()) {
+            String[] sarr = str.split("@");
+            if (sarr[0] != "") {
+                Totalmoney.setText(sarr[0] + "جنيه");
+                m = Integer.parseInt(sarr[0]);
+            }
+            if (sarr[1] != "") {
+                d = Integer.parseInt(sarr[1]);
+                if (d == 1)
+                    Days.setText("يوم واحد");
+                else if (d == 2)
+                    Days.setText("يومين");
+                else if (d >= 3 && d <= 10)
+                    Days.setText(d + " أيام");
+                else if (d >= 10)
+                    Days.setText(d + " يوم");
+            }
+
+                Todaymoney.setText(String.valueOf(m / d) + "جنيه");
+
         }
-        if(sarr[1]!=""){
-            d=Integer.parseInt(sarr[1]);
-            if (d == 1)
-                Days.setText("يوم واحد");
-            else if (d == 2)
-                Days.setText("يومين");
-            else if (d >= 3 && d <= 10)
-                Days.setText(d + " أيام");
-            else if (d >= 10)
-                Days.setText(d + " يوم");
-        }
-        if(!str.isEmpty()){
-            Todaymoney.setText(String.valueOf(m/d)+"جنيه");
+        else
+        {
+            Totalmoney.setText("مفيش");
+            Days.setText("مفيش");
         }
     }
     /*Intent i=getIntent();
