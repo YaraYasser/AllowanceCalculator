@@ -1,5 +1,6 @@
 package com.example.adam.pockethourglass;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,12 +18,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 
 public class MainActivity extends ActionBarActivity {
 //Mohamed habib was here
-    int m=0;
-    int d=0;
+    int money=0;
+    int day=0;
+    int today=0;
     EditText add;
     TextView Todaymoney;
     EditText del;
@@ -41,21 +44,31 @@ public class MainActivity extends ActionBarActivity {
             String[] sarr = str.split("@");
             if (sarr[0] != "") {
                 Totalmoney.setText(sarr[0] + "جنيه");
-                m = Integer.parseInt(sarr[0]);
+                money = Integer.parseInt(sarr[0]);
             }
             if (sarr[1] != "") {
-                d = Integer.parseInt(sarr[1]);
-                if (d == 1)
+                day = Integer.parseInt(sarr[1]);
+                if (day == 1)
                     Days.setText("يوم واحد");
-                else if (d == 2)
+                else if (day == 2)
                     Days.setText("يومين");
-                else if (d >= 3 && d <= 10)
-                    Days.setText(d + " أيام");
-                else if (d >= 10)
-                    Days.setText(d + " يوم");
+                else if (day >= 3 && day <= 10)
+                    Days.setText(day + " أيام");
+                else if (day >= 10)
+                    Days.setText(day + " يوم");
             }
-
-                Todaymoney.setText(String.valueOf(m / d) + "جنيه");
+            String r=Todaymoney.getText().toString();
+            if(r.isEmpty()) {
+                today = money / day;
+                writeONFile(String.valueOf(today));
+                String temp = readFile();
+                Todaymoney.setText(temp);
+            }
+            else
+            {
+                String temp = readFile();
+                Todaymoney.setText(temp);
+            }
 
         }
         else
@@ -64,37 +77,6 @@ public class MainActivity extends ActionBarActivity {
             Days.setText("مفيش");
         }
     }
-    /*Intent i=getIntent();
-    String S= i.getStringExtra("TotalMoney");
-    if(i.hasExtra("TotalMoney")) {
-        money= Integer.parseInt(S);
-
-        Totalmoney.setText(S + "جنيه");
-
-    }
-    else {
-
-        Totalmoney.setText("لسه");
-    }
-    S =i.getStringExtra("N");
-    if(i.hasExtra("N")) {
-        d = Integer.parseInt(S);
-        if (d == 1)
-            Days.setText("يوم واحد");
-        else if (d == 2)
-            Days.setText("يومين");
-        else if (d >= 3 && d <= 10)
-            Days.setText(d + " أيام");
-        else if (d >= 10)
-            Days.setText(d + " يوم");
-        if(i.hasExtra("TotalMoney")) {
-            int TM = money / d;
-            Todaymoney.setText(TM + "جنيه");
-        }
-
-    }
-    else
-            Days.setText("لسه");*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,8 +106,12 @@ public class MainActivity extends ActionBarActivity {
             String s=Todaymoney.getText().toString();
             s=s.replace("جنيه","");
             int n=Integer.parseInt(s);
-            Todaymoney.setText(String.valueOf(n+m));
-       }
+
+            writeONFile(String.valueOf(n+m));
+            String temp=readFile();
+            Todaymoney.setText(temp);
+
+        }
 
     }
     public void by3yt (View v){
@@ -135,7 +121,10 @@ public class MainActivity extends ActionBarActivity {
             String s= Todaymoney.getText().toString();
             s=s.replace("جنيه","");
             int n=Integer.parseInt(s);
-            Todaymoney.setText(String.valueOf(n-m));
+            writeONFile(String.valueOf(n+m));
+            String temp=readFile();
+            Todaymoney.setText(temp);
+
         }
     }
 
@@ -167,4 +156,44 @@ public class MainActivity extends ActionBarActivity {
 
         return ret;
     }
+    private String readFile() {
+
+        String ret = "";
+
+        try {
+            InputStream inputStream = openFileInput("today.txt");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+        } catch (IOException e) {
+
+        }
+
+        return ret;
+    }
+    private void writeONFile(String to) {
+        try {
+
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("today.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(to);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+
+        }
+    }
+
 }
