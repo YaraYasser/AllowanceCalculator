@@ -121,7 +121,7 @@ public class MainActivity extends ActionBarActivity {
             String s= Todaymoney.getText().toString();
             s=s.replace("جنيه","");
             int n=Integer.parseInt(s);
-            writeONFile(String.valueOf(n+m));
+            writeONFile(String.valueOf(n-m));
             String temp=readFile();
             Todaymoney.setText(temp);
 
